@@ -35,7 +35,7 @@ const user = new mongoose.Schema({
 
     ],
 
-    carts:[
+    cart:[
         {
             type:mongoose.Types.ObjectId,
             ref:"books",
