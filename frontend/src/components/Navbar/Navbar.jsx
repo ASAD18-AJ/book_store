@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
+import { FaGripLines } from "react-icons/fa";
 
 
 const Navbar = () => {
@@ -8,10 +9,6 @@ const Navbar = () => {
       {
         title:"Home",
         link:'/',
-      },
-      {
-        title:"About Us",
-        link:"/about-us",
       },
       {
         title:"All Books",
@@ -31,24 +28,27 @@ const Navbar = () => {
   return (
     <div>
       <div className="flex bg-zinc-800 text-white px-8 py-4 items-center justify-between">
-        <div className='flex items-center'>
+        <Link to="/" className='flex items-center'>
           <img className='h-10 me-4' src="https://cdn-icons-png.flaticon.com/128/10433/10433049.png" alt="logo" />
           <h1 className='text-2xl font-semibold'>BookHeaven</h1>
-        </div>
-        <div className='nav-links-bookheaven flex items-center gap-4'>
-          <div className="flex gap-4">
+        </Link>
+        <div className='nav-links-bookheaven block md:flex items-center gap-4'>
+          <div className="hidden md:flex gap-4">
           {links.map((items,i)=>(
-            <div key={i} className='hover:text-blue-500 transition-all duration-300'
+            <Link to={items.link} key={i} className='hover:text-blue-500 transition-all duration-300'
             >
               {items.title}{" "}
-              </div>
+            </Link>
           ))}
           </div>
 
-          <div className="flex gap-4">
-            <button className='px-2 py-1 border border-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 '>LogIn</button>
-            <button className='px-2 py-1 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 '>SignUp</button>
+          <div className="hidden md:flex gap-4">
+            <Link to="/LogIn" className='px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 '>LogIn</Link>
+            <Link to="/SignUp" className='px-4 py-1 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 '>SignUp</Link>
           </div>
+          <button className='text-white text-2xl hover'>
+           <FaGripLines />
+          </button>
 
         </div>
       </div>
