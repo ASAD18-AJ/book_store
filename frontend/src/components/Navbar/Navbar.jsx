@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaGripLines } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const links = [
@@ -22,6 +23,12 @@ const Navbar = () => {
     },
   ];
 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  if (isLoggedIn === false) {
+    links.splice(2, 2);
+  }
+
   const [MobileNav, setMobileNav] = useState("hidden");
 
   return (
@@ -38,33 +45,48 @@ const Navbar = () => {
         <div className="nav-links-bookheaven block md:flex items-center gap-4">
           <div className="hidden md:flex gap-4">
             {links.map((items, i) => (
-              <Link
-                to={items.link}
-                key={i}
-                className="hover:text-blue-500 transition-all duration-300"
-              >
-                {items.title}{" "}
-              </Link>
+              <>
+                {items.title === "Profile" ? (
+                  <Link
+                    to={items.link}
+                    key={i}
+                    className="hover:text-blue-500 border border-blue-500 transition-all duration-300"
+                  >
+                    {items.title}{" "}
+                  </Link>
+                ) : (
+                  <Link
+                    to={items.link}
+                    className="hover:text-blue-500 transition-all duration-300"
+                    key={i}
+                  >
+                    {items.title}{ " " }
+                  </Link>
+                )}
+              </>
             ))}
           </div>
 
-          <div className="hidden md:flex gap-4">
-            <Link
-              to="/LogIn"
-              className="px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 "
-            >
-              LogIn
-            </Link>
-            <Link
-              to="/SignUp"
-              className="px-4 py-1 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 "
-            >
-              SignUp
-            </Link>
-          </div>
+          {isLoggedIn === false && (
+            <div className="hidden md:flex gap-4">
+              <Link
+                to="/LogIn"
+                className="px-4 py-1 border border-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 "
+              >
+                LogIn
+              </Link>
+              <Link
+                to="/SignUp"
+                className="px-4 py-1 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 "
+              >
+                SignUp
+              </Link>
+            </div>
+          )}
+
           <button
             className="block md:hidden text-white text-2xl hover:text-zinc-400 "
-            onClick={() => 
+            onClick={() =>
               MobileNav === "hidden"
                 ? setMobileNav("block")
                 : setMobileNav("hidden")
@@ -87,18 +109,22 @@ const Navbar = () => {
           </Link>
         ))}
 
-        <Link
-          to="/LogIn"
-          className={`${MobileNav} text-3xl font-semibold mb-8 px-8 py-2 border border-blue-500 rounded text-white hover:bg-white hover:text-zinc-800 transition-all duration-300 `}
-        >
-          LogIn
-        </Link>
-        <Link
-          to="/SignUp"
-          className={`${MobileNav} text-3xl font-semibold mb-8 px-8 py-2 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 `}
-        >
-          SignUp
-        </Link>
+        {isLoggedIn === false && (
+          <>
+            <Link
+              to="/LogIn"
+              className={`${MobileNav} text-3xl font-semibold mb-8 px-8 py-2 border border-blue-500 rounded text-white hover:bg-white hover:text-zinc-800 transition-all duration-300 `}
+            >
+              LogIn
+            </Link>
+            <Link
+              to="/SignUp"
+              className={`${MobileNav} text-3xl font-semibold mb-8 px-8 py-2 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300 `}
+            >
+              SignUp
+            </Link>
+          </>
+        )}
       </div>
     </>
   );
