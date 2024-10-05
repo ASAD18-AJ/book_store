@@ -45,12 +45,12 @@ const Navbar = () => {
         <div className="nav-links-bookheaven block md:flex items-center gap-4">
           <div className="hidden md:flex gap-4">
             {links.map((items, i) => (
-              <>
+              <div className="flex items-center ">
                 {items.title === "Profile" ? (
                   <Link
                     to={items.link}
                     key={i}
-                    className="hover:text-blue-500 border border-blue-500 transition-all duration-300"
+                    className="px-4 py-1 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300"
                   >
                     {items.title}{" "}
                   </Link>
@@ -63,7 +63,7 @@ const Navbar = () => {
                     {items.title}{ " " }
                   </Link>
                 )}
-              </>
+              </div>
             ))}
           </div>
 
