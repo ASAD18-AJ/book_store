@@ -43,7 +43,7 @@ router.get("/get-favourite-books",authenticateToken,async (req,res) =>{
         const favouriteBooks = userData.favourites;
         return res.json({
             status:"Success",
-            data:"favouriteBooks "
+            data:favouriteBooks,
         })
     } catch (error) {
         console.log(error)

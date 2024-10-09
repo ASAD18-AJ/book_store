@@ -41,6 +41,15 @@ const ViewBookDetails = () => {
     alert(response.data.message)
   };
 
+  const handleCart = async () => {
+    const response = await axios.put(
+      "http://localhost:1000/api/v1/add-to-cart",
+      {},
+      { headers }
+    )
+    alert(response.data.message)  
+  }
+
   return (
     <>
       {Data && (
@@ -60,7 +69,7 @@ const ViewBookDetails = () => {
                   <FaHeart />{" "}
                   <span className="ms-4 block lg:hidden">Favourites</span>
                 </button>
-                <button className="text-white rounded lg:rounded-full text-2xl lg:text-3xl p-3 mt-8 md:mt-0 lg:mt-8 bg-blue-500 flex items-center justify-center">
+                <button className="text-white rounded lg:rounded-full text-2xl lg:text-3xl p-3 mt-8 md:mt-0 lg:mt-8 bg-blue-500 flex items-center justify-center" onClick={handleCart}>
                   <FaShoppingCart />{" "}
                   <span className="ms-4 block lg:hidden">Add to cart</span>
                 </button>
