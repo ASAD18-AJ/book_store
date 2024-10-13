@@ -7,7 +7,7 @@ router.put("/add-to-cart",authenticateToken, async (req,res) =>{
     try {
         const {bookid,id} = req.headers
         const userData = await User.findById(id);
-        const isBookinCart = userData.favourites.includes(bookid);
+        const isBookinCart = userData.cart.includes(bookid);
         if(isBookinCart){
             return res.json({
                 status:"Success",
