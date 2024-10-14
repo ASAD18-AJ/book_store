@@ -33,7 +33,7 @@ function Sidebar({ data }) {
           Settings
         </Link>
       </div>
-      <button className="bg-zinc-900 w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-2 rounded hover:bg-white hover:text-zinc-900 transition-all duration-300">
+      <button className="bg-zinc-900 w-3/6 lg:w-full mt-4 lg:mt-0 text-white font-semibold flex items-center justify-center py-2 rounded hover:bg-white hover:text-zinc-900 transition-all duration-300 sm:w-full">
         Log Out <FaArrowRightFromBracket className='ms-4'/> 
       </button>
     </div>
