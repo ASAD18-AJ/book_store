@@ -27,6 +27,7 @@ router.post("/place-order",authenticateToken,async (req,res) => {
         });
     } catch (error) {
         console.log(error)
+        return res.status(500).json({message: "An error occured" });     
     }
 })
 
@@ -50,7 +51,7 @@ router.get("/get-order-history",authenticateToken,async (req,res)=>{
 })
 
 //get all orders ---admin
-router.get("./get-all-orders",authenticateToken,async (req,res) =>{
+router.get("/get-all-orders",authenticateToken,async (req,res) =>{
     try {
         const userData = await Order.find()
             .populate({
@@ -72,7 +73,7 @@ router.get("./get-all-orders",authenticateToken,async (req,res) =>{
 })
 
 //update order --admin
-router.put("./update-status/:id",authenticateToken,async (req,res)=>{
+router.put("/update-status/:id",authenticateToken,async (req,res)=>{
     try {
         const { id } = req.params;
         await Order.findByIdAndUpdate(id,{status:req.body.status});

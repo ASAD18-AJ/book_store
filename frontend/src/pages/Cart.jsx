@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
 import { AiFillDelete } from "react-icons/ai";
+import { BsCartXFill } from "react-icons/bs";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ const Cart = () => {
     authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 
+
+
+
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(
@@ -20,9 +24,13 @@ const Cart = () => {
         { headers }
       );
       setCart(res.data.data);
+      console.log(res.data.data)
     };
     fetch();
   }, [Cart]);
+
+
+
   const deleteItem = async (bookid) => {
     const response = await axios.put(
       `http://localhost:1000/api/v1/remove-from-cart/${bookid}`,
@@ -30,17 +38,23 @@ const Cart = () => {
       { headers }
     );
     alert(response.data.message);
+    console.log(response.data.message)
   };
   useEffect(() => {
     if (Cart && Cart.length > 0) {
       let total = 0;
       Cart.map((items) => {
-        total += items.price;
+        let x = parseInt(items.price)
+        total += x;
       });
       setTotal(total);
       total = 0;
     }
   }, [Cart]);
+
+
+
+
   const PlaceOrder = async () => {
     try {
       const response = await axios.post(
@@ -50,6 +64,7 @@ const Cart = () => {
       );
       alert(response.data.message);
       navigate("/profile/orderHistory");
+     
     } catch (error) {
       console.log(error);
     }
@@ -67,55 +82,54 @@ const Cart = () => {
             <h1 className="text-5xl lg:text-6xl font-semibold text-zinc-400">
               Empty Cart
             </h1>
-            <img
-              src="/empty-cart.png"
-              alt="empty cart"
-              className="lg:h-[50vh]"
-            />
+             
+            <BsCartXFill className="h-[20vh] w-20 text-zinc-400"/>
           </div>
         </div>
       )}
       {Cart && Cart.length > 0 && (
-        <>
+        <div>
           <h1 className="text-5xl font-semibold text-zinc-500 mb-8">
             Your Cart
           </h1>
-          {Cart.map((items, i) => {
+          {Cart.map((it, i) => {
+            return (
             <div
               className="w-full my-4 rounded flex flex-col md:flex-row p-4 bg-zinc-800 justify-between items-center"
               key={i}
             >
               <img
-                src={items.url}
+                src={it.url}
                 alt="/"
                 className="h-[20vh] md:h-[10vh] object-cover"
               />
               <div className="w-full md:w-auto">
                 <h1 className="text-2xl text-zinc-100 font-semibold text-start mt-2 md:mt-0">
-                  {items.title}
+                  {it.title}
                 </h1>
                 <p className="text-normal text-zinc-300 mt-2 hidden lg:block">
-                  {items.desc.slice(0, 100)}...
+                  {it.desc.slice(0, 100)}...
                 </p>
                 <p className="text-normal text-zinc-300 mt-2 hidden md:block lg:hidden">
-                  {items.desc.slice(0, 65)}...
+                  {it.desc.slice(0, 65)}...
                 </p>
                 <p className="text-normal text-zinc-300 mt-2 block md:hidden">
-                  {items.desc.slice(0, 100)}...
+                  {it.desc.slice(0, 100)}...
                 </p>
               </div>
               <div className="flex mt-4 w-full md:w-auto items-center justify-between">
-                <h2 className="">$ {items.price}</h2>
+                <h2 className="text-zinc-100 text-3xl font-semibold flex">$ {it.price}</h2>
                 <button
                   className="bg-red-100 text-red-700 border border-red-700 rounded p-2 ms-12"
-                  onClick={() => deleteItem(items._id)}
+                  onClick={() => deleteItem(it._id)}
                 >
                   <AiFillDelete />
                 </button>
               </div>
-            </div>;
+            </div>
+            )
           })}
-        </>
+        </div>
       )}
       {Cart && Cart.length > 0 && (
         <div className="mt-4 w-full flex items-center justify-end">
@@ -124,7 +138,8 @@ const Cart = () => {
               Total Amount
             </h1>
             <div className="mt-3 flex items-center justify-between text-xl text-zinc-200">
-              <h2>{Cart.length} books</h2> <h2>$ {Total}</h2>
+              <h2>{Cart.length} books</h2>  
+              <h2> ${Total}</h2>
             </div>
             <div className="w-[100%] mt-3">
               <button
