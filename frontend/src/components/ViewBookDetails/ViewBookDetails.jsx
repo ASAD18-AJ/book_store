@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../Loader/Loader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GrLanguage } from "react-icons/gr";
 import { FaEdit, FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { MdOutlineDelete} from 'react-icons/md'
 
 const ViewBookDetails = () => {
+  const navigate = useNavigate()
   const { id } = useParams();
   const [Data, setData] = useState("");
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
@@ -49,6 +50,15 @@ const ViewBookDetails = () => {
     )
     alert(response.data.message)  
   }
+  const deleteBook = async () => {
+    const response = await axios.delete(
+      "http://localhost:1000/api/v1/delete-book",
+      { headers }
+    )
+    alert(response.data.message)
+    navigate("/all-books")
+  }
+
 
   return (
     <>
@@ -82,7 +92,7 @@ const ViewBookDetails = () => {
                   <FaEdit />{" "}
                   <span className="ms-4 block lg:hidden">Edit</span>
                 </button>
-                <button className="text-white rounded lg:rounded-full text-2xl lg:text-3xl p-3 lg:mt-8 md:mt-0 bg-white flex items-center justify-center">
+                <button className="text-red-600 rounded lg:rounded-full text-2xl lg:text-3xl p-3 lg:mt-8 md:mt-0 bg-white flex items-center justify-center" onClick={deleteBook}>
                   <MdOutlineDelete/>
                   <span className="ms-4 block lg:hidden">Delete Book</span>
                 </button>
