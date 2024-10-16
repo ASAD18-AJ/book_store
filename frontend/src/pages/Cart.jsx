@@ -24,7 +24,7 @@ const Cart = () => {
         { headers }
       );
       setCart(res.data.data);
-      console.log(res.data.data)
+      // console.log(res.data.data)
     };
     fetch();
   }, [Cart]);

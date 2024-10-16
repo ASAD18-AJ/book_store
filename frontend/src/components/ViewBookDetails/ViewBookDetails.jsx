@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../Loader/Loader";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { GrLanguage } from "react-icons/gr";
 import { FaEdit, FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
@@ -14,8 +14,8 @@ const ViewBookDetails = () => {
   const [Data, setData] = useState("");
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
   const role = useSelector((state) => state.auth.role);
-  console.log(isLoggedIn)
-  console.log(role)
+  // console.log(isLoggedIn)
+  // console.log(role)
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
@@ -88,10 +88,10 @@ const ViewBookDetails = () => {
               {
                 isLoggedIn === true && role === "admin" && (
                 <div className="flex flex-col md:flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0">
-                <button className="bg-white rounded lg:rounded-full text-2xl lg:text-3xl p-3 flex items-center justify-center">
+                <Link to={`/updateBook/${id}`} className="bg-white rounded lg:rounded-full text-2xl lg:text-3xl p-3 flex items-center justify-center">
                   <FaEdit />{" "}
                   <span className="ms-4 block lg:hidden">Edit</span>
-                </button>
+                </Link>
                 <button className="text-red-600 rounded lg:rounded-full text-2xl lg:text-3xl p-3 lg:mt-8 md:mt-0 bg-white flex items-center justify-center" onClick={deleteBook}>
                   <MdOutlineDelete/>
                   <span className="ms-4 block lg:hidden">Delete Book</span>

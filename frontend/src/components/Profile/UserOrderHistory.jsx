@@ -3,12 +3,14 @@ import axios from 'axios'
 import Loader from '../Loader/Loader'
 import { Link } from 'react-router-dom'
 
+
 const UserOrderHistory = () => {
   const [OrderHistory, setOrderHistory] = useState();
   const headers= {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
   }
+
   useEffect(() => {
     const fetch = async () => { 
       const response = await axios.get(
@@ -16,6 +18,7 @@ const UserOrderHistory = () => {
       { headers }
     )
     setOrderHistory( response.data.data)
+    // console.log(response.data.data)  
   }
   fetch();
   },[])

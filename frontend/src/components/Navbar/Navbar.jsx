@@ -24,7 +24,7 @@ const Navbar = () => {
     {
       title: "Admin Profile",
       link: "/profile",
-    },
+    },  
   ];
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -34,11 +34,11 @@ const Navbar = () => {
     links.splice(2, 2);
   }
 
-  if (isLoggedIn == true && role === "user"){
+  if (isLoggedIn === true && role === "user"){
     links.splice(4,1)
   }
 
-  if(isLoggedIn == true && role === "admin"){
+  if(isLoggedIn === true && role === "admin"){
     links.splice(3,1)
   }
 
