@@ -18,7 +18,7 @@ const UserOrderHistory = () => {
       { headers }
     )
     setOrderHistory( response.data.data)
-    // console.log(response.data.data)  
+    console.log(response.data.data)  
   }
   fetch();
   },[])
