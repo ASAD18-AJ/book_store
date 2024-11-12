@@ -33,7 +33,7 @@ const AllOrders = () => {
   }
   const submitChanges = async (i) => {
     const id = AllOrders[i]._id;
-    console.log("hello")
+    // console.log("hello")
     const response = await axios.put(
       `https://book-store-ncld.onrender.com/api/v1/update-status/${id}`,
       Values,
