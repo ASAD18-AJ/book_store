@@ -4,7 +4,7 @@ import Loader from "../components/Loader/Loader";
 import {FaCheck, FaUserLarge} from 'react-icons/fa6'
 import { IoOpenOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import SeeUserData from "./seeUserData";
+import SeeUserData from "./SeeUserData";
 
 
 const AllOrders = () => {
